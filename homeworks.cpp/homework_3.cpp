@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <math.h>
-2 
+
 void task13a();
 void task23j();
 
