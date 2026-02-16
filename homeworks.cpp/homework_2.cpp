@@ -42,3 +42,4 @@ double th_derivative(double x) {
     double t = th(x);
     return 1.0 - t * t;
 }
+
