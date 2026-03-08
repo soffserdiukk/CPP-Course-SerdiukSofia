@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <math.h>
 
-// --- Прототипи рекурсивних функцій ---
+// Прототипи допоміжних рекурсивних функцій
 long reverse_number(long n, long current_rev);
 double taylor_cos(double x, double term, int n, double eps);
 
-// --- Оголошення функцій завдань ---
+// Оголошення функцій завдань
 void task15();
 void task16();
 
@@ -22,52 +22,40 @@ int main() {
     return 0;
 }
 
-// --- Реалізація завдань ---
-
-// Завдання 15: Інверсія числа
+// Завдання 15: Інверсія числа (запис у зворотному порядку)
 void task15() {
     long n;
-    printf("\n--- Завдання 15: Інверсія числа ---\n");
-    printf("Введіть число n: ");
+    printf("\n--- Завдання 15: Інверсія ---\nВведіть натуральне число n: ");
     scanf("%ld", &n);
 
-    // Виклик рекурсивної функції
-    long result = (n == 0) ? 0 : reverse_number(n, 0);
-    printf("Число у зворотному порядку: %ld\n", result);
+    // Згідно з вказівкою: y_i = y_{i-1} * 10 + a_i
+    long inverted = (n == 0) ? 0 : reverse_number(n, 0);
+    printf("Результат інверсії: %ld\n", inverted);
 }
 
-// Завдання 16: Ряд Тейлора для cos(x)
+// Завдання 16б: Наближене обчислення cos(x)
 void task16() {
     double x, eps;
-    printf("\n--- Завдання 16: cos(x) через ряд Тейлора ---\n");
-    printf("Введіть x (в радіанах): ");
-    scanf("%lf", &x);
-    printf("Введіть точність eps: ");
-    scanf("%lf", &eps);
+    printf("\n--- Завдання 16б: cos(x) ---\nВведіть x (рад) та точність eps: ");
+    scanf("%lf %lf", &x, &eps);
 
     // Перший доданок cos(x) це 1.0 (при n=0)
-    double my_cos = taylor_cos(x, 1.0, 1, eps);
-    printf("Результат: %.10f\n", my_cos);
+    double result = taylor_cos(x, 1.0, 1, eps);
+    printf("Обчислений cos(x): %.10f\n", result);
     printf("Стандартний cos(x): %.10f\n", cos(x));
 }
 
-// --- Допоміжні рекурсивні функції ---
+// РЕКУРСИВНІ ФУНКЦІЇ
 
-// Рекурсивна інверсія (використовує вказівку y_i = y_{i-1} * 10 + a_i)
 long reverse_number(long n, long current_rev) {
-    if (n == 0) {
-        return current_rev;
-    }
-    // n % 10 - це остання цифра (a_i)
+    if (n == 0) return current_rev;
+    // Беремо останню цифру (n % 10) і додаємо до результату
     return reverse_number(n / 10, current_rev * 10 + (n % 10));
 }
 
-// Рекурсивний косинус
 double taylor_cos(double x, double term, int n, double eps) {
-    if (fabs(term) < eps) {
-        return 0;
-    }
-    // Рекурентне співвідношення для наступного доданка
-    double multiplier = -(x * x) / ((2 * n - 1) * (2 * n));
-    return term + taylor_cos(x, term * multiplier, n + 1, eps);
+    if (fabs(term) < eps) return 0;
+    // Рекурентне співвідношення для доданка cos(x)
+    double mult = -(x * x) / ((2 * n - 1) * (2 * n));
+    return term + taylor_cos(x, term * mult, n + 1, eps);
 }
