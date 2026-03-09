@@ -6,7 +6,7 @@ void task5();  void task6();  void task7();  void task8();
 
 int main() {
     int task_num;
-    printf("Виберіть номер завдання (1-12): ");
+    printf("Виберіть номер завдання (1-8): ");
     scanf("%d", &task_num);
 
     switch (task_num) {
