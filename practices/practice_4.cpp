@@ -3,12 +3,22 @@
 #include <float.h>
 
 // --- ПРОТОТИПИ ФУНКЦІЙ ---
-void task1(); void task2(); void task3(); void task4(); void task5();
-void task6(); void task7(); void task8(); void task9(); void task10(); void task11();
+void task1(); 
+void task2(); 
+void task3(); 
+void task4(); 
+void task5();
+void task6(); 
+void task7(); 
+void task8(); 
+void task9(); 
+void task10(); 
+void task11();
+void task12();
 
 int main() {
     int task_num;
-    printf("Виберіть номер завдання (1-11): ");
+    printf("Виберіть номер завдання (1-12): ");
     scanf("%d", &task_num);
 
     if (task_num == 1) {
@@ -54,6 +64,10 @@ int main() {
     else if (task_num == 11) {
         printf("Завдання 11: Послідовність\n");
         task11();
+    } 
+     else if (task_num == 12) {
+        printf("Завдання 12: Субфакторіал\n");
+        task12();
     } 
     else {
         printf("Невірний номер завдання.\n");
@@ -217,4 +231,36 @@ void task11() {
         printf("\nСума: %f\nСер. арифметичне: %f\nСер. геометричне: %f\n", 
                 sum, sum / count, pow(prod, 1.0 / count));
     }
+}
+
+void task12() {
+    int n;
+    printf("Введіть натуральне число n (n < 25): ");
+    scanf("%d", &n);
+
+    if (n < 0 || n >= 25) {
+        printf("Помилка: n має бути в межах [0, 24].\n");
+        return;
+    }
+
+    if (n == 0) {
+        printf("!0 = 1\n");
+        return;
+    }
+    if (n == 1) {
+        printf("!1 = 0\n");
+        return;
+    }
+
+    long long prev2 = 1; // !0
+    long long prev1 = 0; // !1
+    long long current = 0;
+
+    for (int i = 2; i <= n; i++) {
+        current = (i - 1) * (prev1 + prev2);
+        prev2 = prev1;
+        prev1 = current;
+    }
+
+    printf("Субфакторіал !%d = %lld\n", n, current);
 }
