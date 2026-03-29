@@ -10,4 +10,6 @@ add_executable(practice_7 practices/practice_7.cpp)
 add_executable(homework_7 homeworks/homework_7.cpp)
 add_executable(practice_8 practices/practice_8.cpp)
 add_executable(homework_8 homeworks/homework_8.cpp)
+add_executable(practice_9 practices/practice_9.cpp)
+add_executable(homework_9 homeworks/homework_9.cpp)
 
