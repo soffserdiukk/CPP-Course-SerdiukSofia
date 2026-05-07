@@ -23,6 +23,22 @@ add_executable(homework_15
         homeworks/homework_15/Rectangle.h
 )
 
+add_executable(practice_16
+        practices/practice_16/main16.cpp
+        practices/practice_16/Person.cpp
+        practices/practice_16/Person.h
+        practices/practice_16/Friend.cpp
+        practices/practice_16/Friend.h
+        practices/practice_16/PhoneBook.cpp
+        practices/practice_16/PhoneBook.h
+)
+
+add_executable(homework_16
+        homeworks/homework_16/main16_h.cpp
+        homeworks/homework_16/Figure3D.cpp
+        homeworks/homework_16/Figure3D.h
+)
+
 
 add_executable(homework_5 homeworks/homework_5.cpp)
 add_executable(practice_5 practices/practice_5.cpp)
