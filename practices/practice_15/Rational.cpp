@@ -17,7 +17,9 @@ void Rational::simplify() {
 }
 
 Rational::Rational(int n, int d) : nominator(n) {
-    setDenominator(d);
+    if (d == 0) throw ExeptionRational();
+    denominator = d;
+    simplify();
 }
 
 Rational::Rational(const Rational& other)
@@ -29,39 +31,47 @@ void Rational::setNominator(int n) {
 }
 
 void Rational::setDenominator(int d) {
-    if (d == 0) {
-        std::cerr << "Помилка: знаменник не може бути 0. Встановлено 1.\n";
-        denominator = 1;
-    } else {
-        denominator = d;
-    }
+    if (d == 0) throw ExeptionRational();
+    denominator = d;
     simplify();
 }
 
-void Rational::input() {
+// Оператор виведення cout <<
+std::ostream& operator<<(std::ostream& os, const Rational& r) {
+    os << r.nominator << "/" << r.denominator;
+    return os;
+}
+
+// Оператор введення cin >>
+std::istream& operator>>(std::istream& is, Rational& r) {
     int n, d;
-    std::cout << "Чисельник: "; std::cin >> n;
-    std::cout << "Знаменник: "; std::cin >> d;
-    nominator = n;
-    setDenominator(d);
+    is >> n >> d;
+    if (d == 0) throw ExeptionRational();
+    r.nominator = n;
+    r.denominator = d;
+    r.simplify();
+    return is;
 }
 
-void Rational::output() const {
-    std::cout << nominator << "/" << denominator;
+// Дружня функція запису у файл
+void saveToFile(const Rational& r, const std::string& filename) {
+    std::ofstream file(filename);
+    if (!file.is_open()) {
+        throw std::runtime_error("Could not open file: " + filename);
+    }
+    file << r;
+    file.close();
 }
 
-double Rational::toDouble() const {
-    return static_cast<double>(nominator) / denominator;
-}
+// Решта методів залишаються (toDouble, +, -, *, /)
+double Rational::toDouble() const { return static_cast<double>(nominator) / denominator; }
 
 Rational Rational::operator+(const Rational& other) const {
-    return Rational(nominator * other.denominator + other.nominator * denominator,
-                    denominator * other.denominator);
+    return Rational(nominator * other.denominator + other.nominator * denominator, denominator * other.denominator);
 }
 
 Rational Rational::operator-(const Rational& other) const {
-    return Rational(nominator * other.denominator - other.nominator * denominator,
-                    denominator * other.denominator);
+    return Rational(nominator * other.denominator - other.nominator * denominator, denominator * other.denominator);
 }
 
 Rational Rational::operator*(const Rational& other) const {
@@ -69,9 +79,11 @@ Rational Rational::operator*(const Rational& other) const {
 }
 
 Rational Rational::operator/(const Rational& other) const {
+    if (other.nominator == 0) throw ExeptionRational("DIVISION BY ZERO");
     return Rational(nominator * other.denominator, denominator * other.nominator);
 }
 
+// Оператори порівняння
 bool Rational::operator<(const Rational& other) const { return this->toDouble() < other.toDouble(); }
 bool Rational::operator>(const Rational& other) const { return other < *this; }
 bool Rational::operator<=(const Rational& other) const { return !(*this > other); }

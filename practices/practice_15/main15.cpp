@@ -32,23 +32,25 @@ int main() {
 }
 
 void runRationalTask() {
-    // Мінімум у масиві
-    std::vector<Rational> arr = { Rational(1, 2), Rational(-3, 4), Rational(5, 6), Rational(1, 10) };
-    Rational minR = arr[0];
-    for (const auto& r : arr) if (r < minR) minR = r;
-    std::cout << "Мінімальне число: "; minR.output(); std::cout << std::endl;
+    try {
+        Rational r1;
+        std::cout << "Введіть чисельник та знаменник для r1: ";
+        std::cin >> r1; // Тепер через >>
+        std::cout << "Ваше число: " << r1 << std::endl;
 
-    // Обчислення ряду pi^2/12
-    double target = (M_PI * M_PI) / 12.0;
-    double sum = 0;
-    int n = 1;
-    while (true) {
-        double term = 1.0 / (n * n);
-        sum += (n % 2 != 0) ? term : -term;
-        if (std::abs(sum - target) < 0.01) break;
-        n++;
+        Rational r2(1, 2);
+        Rational res = r1 - r2;
+        std::cout << r1 << " - " << r2 << " = " << res << std::endl;
+
+        // Тест запису у файл
+        saveToFile(res, "rational_res.txt");
+        std::cout << "Результат збережено у файл.\n";
+
+    } catch (const ExeptionRational& e) {
+        std::cerr << "Помилка раціонального числа: " << e.what() << std::endl;
+    } catch (const std::exception& e) {
+        std::cerr << "Загальна помилка: " << e.what() << std::endl;
     }
-    std::cout << "Сума ряду: " << sum;
 }
 
 void runPointTask() {
