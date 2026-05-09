@@ -3,7 +3,8 @@
 #ifndef CPP_COURSE_SERDIUKSOFIA_RATIONAL_H
 #define CPP_COURSE_SERDIUKSOFIA_RATIONAL_H
 
-#include <stdbool.h>
+#include <cstdbool>
+#include <stdexcept>
 
 typedef struct {
     int numerator;

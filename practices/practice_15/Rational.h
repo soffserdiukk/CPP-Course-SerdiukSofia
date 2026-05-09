@@ -2,32 +2,39 @@
 #define RATIONAL_H
 
 #include <iostream>
+#include <fstream>
+#include <stdexcept>
+#include <string>
+
+class ExeptionRational : public std::runtime_error {
+public:
+    ExeptionRational(const std::string& msg = "DENOMINATOR CANT BE ZERO")
+        : std::runtime_error(msg) {}
+};
 
 class Rational {
 private:
     int nominator;
     int denominator;
 
-    int gcd(int a, int b) const; // Метод для знаходження НСД
-    void simplify();             // Приватний метод для скорочення дробу
+    int gcd(int a, int b) const;
+    void simplify();
 
 public:
-    Rational(int n = 1, int d = 1); // Конструктор за замовчуванням та з параметрами
-    Rational(const Rational& other); // Копі-конструктор
+    Rational(int n = 1, int d = 1);
+    Rational(const Rational& other);
 
-    // Методи ініціалізації
     void setNominator(int n);
-    void setDenominator(int d); // Заборона нуля
+    void setDenominator(int d);
 
-    // Введення та виведення
-    void input();
-    void output() const;
     double toDouble() const;
 
-    // Арифметичні оператори
+    // Арифметичні оператори (як члени класу)
     Rational operator+(const Rational& other) const;
-    Rational operator-(const Rational& other) const;
     Rational operator*(const Rational& other) const;
+
+    // Перевантаження
+    Rational operator-(const Rational& other) const;
     Rational operator/(const Rational& other) const;
 
     // Оператори порівняння
@@ -36,6 +43,13 @@ public:
     bool operator<=(const Rational& other) const;
     bool operator>=(const Rational& other) const;
     bool operator==(const Rational& other) const;
+
+    // Перевантаження введення/виведення (дружні функції)
+    friend std::ostream& operator<<(std::ostream& os, const Rational& r);
+    friend std::istream& operator>>(std::istream& is, Rational& r);
+
+    // Дружня функція для запису у файл
+    friend void saveToFile(const Rational& r, const std::string& filename);
 };
 
 #endif
