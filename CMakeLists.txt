@@ -6,6 +6,8 @@ add_compile_options("-finput-charset=UTF-8" "-fexec-charset=UTF-8")
 
 set(CMAKE_CXX_STANDARD 17)
 
+include_directories(practices/practice_15)
+
 add_executable(practice_15
         practices/practice_15/main15.cpp
         practices/practice_15/Point.cpp
@@ -51,6 +53,25 @@ add_executable(homework_17
         homeworks/homework_17/Int24.h
 )
 
+add_executable(practice_18_1
+        practices/practice_18/task_18.1.cpp
+        practices/practice_15/Rational.cpp
+)
+
+add_executable(practice_18_2
+        practices/practice_18/task_18.2.cpp
+        practices/practice_15/Rational.cpp
+)
+
+add_executable(homework_18_5
+        homeworks/homework_18/task_18.5.cpp
+        practices/practice_15/Rational.cpp
+)
+
+add_executable(homework_18_7
+        homeworks/homework_18/task_18.7.cpp
+        practices/practice_15/Rational.cpp
+)
 
 add_executable(homework_5 homeworks/homework_5.cpp)
 add_executable(practice_5 practices/practice_5.cpp)
